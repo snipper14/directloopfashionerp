@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="18790af0-a9e7-4550-bc85-6d576291733d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/RoomOrder/RoomOrderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/RoomOrder/RoomOrderController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Sale/RoomServiceSaleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Sale/RoomServiceSaleController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/RoomOrder/RoomOrderRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/RoomOrder/RoomOrderRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/POS/RoomOrder.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/POS/RoomOrder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Sale/RoomServiceSoldItem.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Sale/RoomServiceSoldItem.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_10_04_223905_create_room_orders_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_10_04_223905_create_room_orders_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_10_06_204047_create_room_service_sold_items_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_10_06_204047_create_room_service_sold_items_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/pdf/internal_grn.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/public/pdf/internal_grn.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/pos/room_service/RoomBills.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/pos/room_service/RoomBills.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/pos/room_service/RoomOrderPrint.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/pos/room_service/RoomOrderPrint.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/store/stock/StockMovementReport.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/store/stock/StockMovementReport.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/router.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1whWW8BuMaPSMyoEkgrRdgXkxya" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="settings.editor.selected.configurable" value="preferences.fileTypes" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="18790af0-a9e7-4550-bc85-6d576291733d" name="Default Changelist" comment="" />
+      <created>1628911409150</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1628911409150</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.php" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="137" y="19" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1637208761155">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="137" y="19" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728@0.0.1366.728" timestamp="1637208761155" />
+    <state x="194" y="64" width="977" height="600" key="#com.intellij.featureStatistics.actions.ShowFeatureUsageStatisticsDialog" timestamp="1637286706954">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="194" y="64" width="977" height="600" key="#com.intellij.featureStatistics.actions.ShowFeatureUsageStatisticsDialog/0.0.1366.728@0.0.1366.728" timestamp="1637286706954" />
+    <state x="184" y="9" key="SettingsEditor" timestamp="1637288901273">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="184" y="9" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1637288901273" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1637286960750">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1637286960750" />
+  </component>
+</project>

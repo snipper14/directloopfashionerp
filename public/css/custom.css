@@ -1,0 +1,125 @@
+p {
+    /* font-family: 'Courier New', Courier, monospace !important; */
+    /* font-family: "Lucidatypewriter", monospace !important; */
+    /* font-weight: 500 !important; */
+    color: #000 !important;
+}
+.item {
+   
+    font-size: 1rem !important;
+   
+   
+}
+/* .item {
+    font-family: "Lucidatypewriter", monospace !important;
+    font-size: 1.3rem !important;
+    color: rgb(17, 15, 15) !important;
+    font-weight: 400 !important;
+} */
+.td-height > td {
+    padding: 0px !important;
+    margin: 0px !important;
+}
+.td-height > td > p {
+    font-family: "Lucidatypewriter", monospace !important;
+    font-size: 1.3rem !important;
+    color: rgb(17, 15, 15) !important;
+    font-weight: 400 !important;
+}
+.td-height .item {
+    color: #000 !important;
+}
+.company-name {
+    color: #9a631d !important;
+    font-family: "Times New Roman", Times, serif !important;
+    font-weight: 900 !important;
+    font-size: 3rem !important;
+}
+.table-bordered table {
+    border-collapse: collapse;
+}
+
+.table-bordered td {
+    padding: 4px !important;
+}
+
+.table-bordered thead {
+    border-top: 1px solid rgb(14, 13, 13);
+}
+
+table {
+    width: 100% !important;
+}
+table > tr > td > p {
+    font-size: 1.8rem !important;
+}
+.table-address {
+    width: 100% !important;
+    margin-bottom: 0rem;
+    margin-top: -14px;
+}
+
+.left-cont p {
+    line-height: 0.9em !important;
+    margin-left: 0.6rem;
+    font-size: 1rem !important;
+}
+.totals{
+    font-size: 1.3rem !important;
+}
+.right-cont p {
+    line-height: 0.9em !important;
+    font-size: 1rem !important;
+    word-wrap: break-word !important;
+}
+.payment b {
+    line-height: 0.9em !important;
+    font-size: 1.2rem !important;
+    word-wrap: break-word !important;
+}
+.right-cont {
+    max-width: 200px !important ;
+    overflow: hidden !important;
+}
+.table-address p {
+    font-size: 1em;
+}
+
+.invoice {
+    text-align: center;
+    color: #9a631d;
+    font-weight: 700;
+    font-size: 1.6rem;
+}
+
+.company-add {
+    color: rgb(211, 79, 79);
+    font-style: italic;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.bg-dark {
+    background: #221c10;
+    color: #fff;
+}
+.bg-dark b {
+    font-size: 1.4rem !important;
+}
+p {
+    font-size: 18px !important;
+}
+.title_2 {
+    font-size: 1.2rem !important;
+    word-wrap: break-word !important;
+}
+.title_2 > td > p,
+b {
+    font-size: 1.4rem !important;
+    word-wrap: break-word !important;
+}
+.table-title > td > b {
+    font-size: 1rem !important;
+}
+
+

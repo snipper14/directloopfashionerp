@@ -1,0 +1,446 @@
+.v-btn-primary {
+    background-color: #0d47a1 !important;
+    height: 30px !important ;
+}
+v-dialog {
+    z-index: 1000000 !important;
+}
+.form_error {
+    color: red !important;
+}
+.form-group label {
+    font-size: small;
+}
+.small-input {
+    max-height: 30px !important;
+}
+.table-striped tbody {
+    font-size: 14px !important;
+}
+.table-striped thead tr {
+    font-size: 12px !important;
+}
+.table-striped thead {
+    font-size: 16px !important;
+}
+.card-header {
+    height: 50px;
+}
+.btn-export {
+    height: 28px !important;
+}
+.pdf-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center !important;
+    margin-top: 90px;
+    margin-left: 25%;
+}
+.custom-row {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.border-wrapper {
+    border: 1px solid #000;
+    padding: 2rem;
+    margin: 2rem;
+    border-radius: 4px;
+}
+.nav-btn-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1.4rem;
+}
+.nav-btn-wrapper button {
+    height: 1.6rem !important;
+    font-size: 0.8rem !important;
+    align-items: center !important;
+
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+.nav-btn-wrapper form input {
+    height: 1.6rem !important;
+    font-size: 0.8rem !important;
+    align-items: center !important;
+
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+.card-header-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.card-header-wrapper button {
+    height: 1.6rem !important;
+    font-size: 0.8rem !important;
+    align-items: center !important;
+    margin: 1rem;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+.card-header-wrapper input {
+    height: 1.6rem !important;
+    font-size: 0.8rem !important;
+    align-items: center !important;
+    margin: 1rem;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+.custom-button {
+    height: 1.6rem !important;
+    font-size: 0.8rem !important;
+    align-items: center !important;
+
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+.date-picker-wrapper {
+    display: flex;
+    flex-direction: column !important;
+}
+._1adminOverveiw_table_recent {
+    /* background-image: url("/images/develizsolutions.png");   */
+    /* background-image: url("https://www.develizsolutions.com/images/tigervio.jpeg"); */
+     /* background-image: url("https://www.develizsolutions.com/images/mister.jpg");  */
+     /* background-image: url("https://glimmersolutions.co.ke/background_images/grange.png");  */
+    background-image: url("https://beyondbusinesstech.com/client_logos/beyond_logo.PNG");   
+    /* background-image: url("https://glimmersolutions.co.ke/background_images/inceptial.jpeg"); */
+    /* background-image: url("https://beyondbusinesstech.com/client_logos/jaybarber.jpeg");   */
+    /* background-image: url("https://glimmersolutions.co.ke/background_images/jaybarber.jpeg");  */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: #cccccc;
+}
+.login-title {
+    color: #f47207;
+    color: #ad784c;
+}
+
+.vld-overlay.is-full-page {
+    z-index: 100051 !important;
+}
+.danger {
+    color: red !important;
+}
+.red {
+    background: red !important;
+}
+.green {
+    background: green !important;
+}
+.blue {
+    background: blue !important;
+}
+.indigo {
+    background-color: indigo !important ;
+}
+.deep-purple {
+    background-color: purple !important;
+}
+.cyan {
+    background: cyan !important;
+}
+
+.orange {
+    background-color: orange !important;
+}
+.blue-shade {
+    background-color: #00675b !important;
+}
+
+.center {
+    text-align: center;
+}
+.text-white {
+    color: #fff;
+}
+.menu-product {
+    font-size: 1.2rem;
+    text-align: justify;
+    font-family: "yanone-kaffeesatz" !important;
+    font-weight: 300 !important;
+}
+
+.totals-badge {
+    text-align: center;
+    font-size: 1.2rem;
+    font-family: "yanone-kaffeesatz", sans-serif !important;
+    margin: 2px;
+}
+.total-display {
+    display: flex;
+    flex-wrap: wrap;
+}
+.button-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.button-nav > button {
+    margin-top: 4px;
+}
+.menu-image {
+    max-width: 90px;
+    height: 70px;
+}
+.menu-active {
+    background: #bec5b7 !important;
+}
+
+.nav-active {
+    background: rgb(17, 9, 129) !important;
+    color: #fff !important;
+    box-shadow: 10px 5px 5px rgb(70, 64, 64);
+}
+.btn-scroll-down {
+    position: fixed !important;
+    bottom: 20px;
+    right: 5%;
+    width: 50px !important;
+    height: 50px !important;
+    background: #76ff03 !important;
+}
+.scroll-icon {
+    width: 48px !important;
+    height: 48px !important;
+    color: #fff;
+}
+
+.btn-scroll-up {
+    position: fixed !important;
+    top: 55px;
+    right: 5%;
+    width: 50px !important;
+    height: 50px !important;
+    background: #76ff03 !important;
+}
+tr {
+    padding: 0px !important;
+    margin: 0px !important;
+}
+
+.ivu-select-dropdown {
+    width: inherit;
+    max-height: 700px !important;
+}
+.swal2-container {
+    z-index: 100000 !important;
+}
+
+.center {
+    display: flex;
+    align-items: center;
+}
+.center-vertical {
+    margin-top: 50%;
+}
+.text-white {
+    color: #ffffff !important;
+}
+.body-custom {
+    font-family: "Open Sans", sans-serif !important;
+    background: #0c0b09 !important;
+    color: #fff !important;
+}
+table.custom-table tr td {
+    font-size: 11px;
+}
+.nopadding {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+.primary-color {
+    background-color: #c8c6c5;
+}
+.login_wrapper {
+    margin-top: 0%;
+    background-image: url("/images/bg.jpg");
+    background-color: #cccccc;
+    background-size: cover;
+    background-position: center;
+
+    height: 100% !important;
+}
+.login-title {
+    color: #ffffff;
+}
+.table-input{
+    width: 80px;
+    font-size:10px;
+    font-weight:bold;
+}
+
+
+/* Stylish Table */
+.stylish-table {
+    font-family: 'Poppins', Arial, sans-serif; /* Modern and clean font family */
+    font-size: 14px; /* Compact text size */
+    border: 1px solid #ddd; /* Subtle border */
+    width: 100%; /* Full-width table */
+    margin-top: 20px; /* Add some spacing at the top */
+    border-collapse: collapse; /* Clean table borders */
+  }
+  
+  .stylish-table th {
+    background-color: #007bff; /* Primary color for table header */
+    color: #fff; /* White text */
+    text-align: center; /* Center-align header text */
+    font-weight: bold; /* Make header text bold */
+    padding: 3px; /* Add padding */
+  }
+  
+  .stylish-table td {
+    text-align: center; /* Center-align table data */
+    vertical-align: middle; /* Vertically center table data */
+    padding: 3px; /* Add padding */
+  }
+  
+  /* Emphasized Rows */
+  .table-label {
+    font-weight: bold; /* Bold text for labels */
+    color: #333; /* Darker text color */
+  }
+  
+  .table-value {
+    font-weight: 600; /* Slightly bold text */
+    color: #007bff; /* Primary blue for values */
+  }
+  
+  /* Alternate Row Backgrounds */
+  .stylish-table tr:nth-child(even) {
+    background-color: #f8f9fa; /* Light gray background for even rows */
+  }
+  
+  .stylish-table tr:hover {
+    background-color: #e9ecef; /* Slightly darker gray on hover */
+  }
+  
+  /* Responsive Table Container */
+  .table-responsive {
+    margin-top: 10px;
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    overflow: hidden; /* Prevent overflow in responsive mode */
+  }
+
+  .dropdown-menu{
+    z-index: 1000 !important;
+    position: relative;
+  }
+.custom-dropdown-btn:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+}
+
+/* Dropdown Menu Styling */
+.custom-dropdown-menu {
+    background-color: #f8f9fa; /* Light gray background */
+    border-radius: 8px; /* Rounded corners */
+    border: 1px solid #ddd; /* Subtle border */
+    padding: 10px 0; /* Add padding for the menu */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Add shadow */
+    overflow: hidden; 
+  
+    /* Prevent overflow */
+}
+
+/* Dropdown Items Styling */
+.custom-dropdown-item {
+   margin-top:1px ;
+    color: #333; /* Dark text */
+    font-size: 15px; /* Slightly larger text */
+    padding: 10px 20px ; /* Add padding */
+    transition: background-color 0.3s, color 0.3s; /* Smooth hover effect */
+    height: 30px !important; 
+     font-size: 12px !important;
+}
+
+.custom-dropdown-item:hover {
+    background-color: #007bff; /* Highlight on hover */
+    color: #fff; /* White text on hover */
+    cursor: pointer; /* Pointer cursor */
+}
+
+/* Optional: Add a separator between items */
+.custom-dropdown-item:not(:last-child) {
+    border-bottom: 1px solid #ddd; /* Separator line */
+}
+.custom-dropdown-item {
+    background-color: #97bce1; /* Light gray */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .custom-dropdown-btn {
+        width: 100%; /* Make the button full-width on small screens */
+    }
+    .custom-dropdown-menu {
+        width: 100%; /* Make the dropdown full-width */
+    }
+}
+
+
+.modern-table {
+    color: #333;
+    background-color: #f8f9fa;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.modern-table thead {
+    background-color: rgb(17, 9, 129);
+    color: white;
+}
+
+.modern-table th,
+.modern-table td {
+    padding: 8px;
+    text-align: left;
+    border: 1px solid #dee2e6;
+}
+
+.modern-table th:first-child,
+.modern-table td:first-child {
+    width: 40px;
+    text-align: center;
+}
+
+.modern-table tbody tr:nth-child(even) {
+    background-color: #e9ecef;
+}
+
+.modern-table input[type="checkbox"] {
+    accent-color: #ad784c;
+    cursor: pointer;
+    transform: scale(1.2);
+}
+
+/* Hover effect */
+.modern-table tbody tr:hover {
+    background-color: #d6d8db;
+}
+.modern-card-header{
+    background-color: #ad784c !important;
+    color: white !important;
+}
+.modern-div {
+    border: 2px solid #ad784c;
+    padding: 10px; /* Optional: Adds some space inside the div */
+    border-radius: 5px; /* Optional: Adds rounded corners to the border */
+}
+.actions-icon{
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+.actions-icon:hover {
+    color: #3a5f3d; /* Example: Change color on hover */
+}
+.table-responsive{
+    overflow-x: auto;
+     white-space: nowrap;
+}
