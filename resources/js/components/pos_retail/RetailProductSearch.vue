@@ -349,6 +349,7 @@ export default {
                 search_code: "",
                 search_description: "",
             },
+            suppressNextSearch: false,
             batch_no: "",
             icons: {
                 mdiBackburger,
@@ -381,6 +382,11 @@ export default {
     watch: {
         "search_query.code": {
             handler: _.debounce(function (val) {
+                if (this.suppressNextSearch) {
+                    // 👈
+                    this.suppressNextSearch = false; // reset once
+                    return; // don't parse/trigger search
+                }
                 const raw = (val || "").trim();
                 if (!raw) {
                     this.batch_no = "";
@@ -396,16 +402,20 @@ export default {
                     if (this.search_query.code !== code)
                         this.search_query.code = code;
                     this.batch_no = batch || "";
+                    this.searchProduct();
+                    console.log("Batch no set to:", this.batch_no);
                 } else {
-                    this.batch_no = "";
+                  //  this.errorNotif("No batch no found in scanned code");
+                  //  this.batch_no = "";
                 }
-
-                this.searchProduct(); // now you can use this.search_query.code and this.batch_no
+                console.log("Batch no set to before watch:", this.batch_no);
+                 // now you can use this.search_query.code and this.batch_no
             }, 500),
         },
         search_query: {
             deep: true,
             handler: _.debounce(function (val, old) {
+                if (this.search_query.code) return;
                 if (this.search_query.code !== "") {
                     this.search_query.code = this.search_query.code;
                 }
@@ -413,11 +423,7 @@ export default {
             }, 500),
         },
     },
-    computed: {
-        debouncedSearch: _.debounce(function () {
-            //  this.searchProduct();
-        }, 500),
-    },
+
     methods: {
         clearOtherFields(activeField) {
             for (const field in this.search_query) {
@@ -465,7 +471,7 @@ export default {
         // Method to update subtotal when selling price or quantity changes
         updateSubTotalEvent(index) {
             console.log("Updating subtotal for index:", index);
-            
+
             const item = this.search_results[index];
             console.log(JSON.stringify(item));
 
@@ -498,7 +504,7 @@ export default {
 
             item.sub_total = item.qty * item.selling_price;
         },
-     
+
         handleSearch() {
             this.debouncedSearch();
         },
@@ -621,26 +627,37 @@ export default {
                         price_group_id: price_group_id,
                     },
                 });
-
-                this.search_results = this.modifyResData(res.data);
-                if (this.search_query.code !== "") {
+                const currentBatch = this.batch_no;
+                this.search_results = this.modifyResData(
+                    res.data,
+                    currentBatch
+                );
+                console.log(
+                    "Search results:",
+                    JSON.stringify(this.search_results)
+                );
+            //    if (this.search_query.code !== "") {
                     if (this.search_results[0]) {
                         this.$emit("stockSearchResult", this.search_results[0]);
+                        this.suppressNextSearch = true;
+
                         this.search_query.code = "";
+                        this.batch_no = "";
                     } else {
                         this.e("Code not found");
                     }
-                }
+             //   }
             } else {
                 this.search_results = [];
             }
         },
-        modifyResData(data) {
+        modifyResData(data, batch_no) {
             let modif = data.map((obj) => {
                 const discount = obj.item_discount || 0; // %
                 const price = obj.selling_price || 0;
                 const qty = 1;
                 const netPrice = price - (price * discount) / 100;
+                console.log("Obj>>>" + batch_no);
 
                 return {
                     hs_code: obj.hs_code,
@@ -659,7 +676,7 @@ export default {
                     customer_name: this.customer_name,
                     customer_id: this.customer_id,
                     customer_pin: this.customer_pin,
-                    batch_no: this.batch_no,
+                    batch_no: batch_no,
                     sub_total: netPrice * qty, // ✅ apply discount
                     item_id: obj.item_id,
                     min_profit_margin: obj.min_profit_margin,

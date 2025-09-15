@@ -75,8 +75,8 @@
                                 x-small
                                 color="secondary"
                                 @click="receiveAllDeliveries()"
-                                v-if="isWritePermitted"
-                                title="write"
+                                v-if="isWritePermitted && isAdmin"
+                                title="write /Admin"
                             >
                                 Receive All
                             </v-btn>

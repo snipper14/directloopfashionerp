@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\Validation\Rule;
 use App\PurchaseOrder\PurchaseOrderReceivable;
 use App\PurchaseOrder\PurchaseOrderReceivableWithBatch;
+use App\Scopes\BranchScope;
 
 class ValidateBatchNo implements Rule
 {
@@ -32,7 +33,7 @@ class ValidateBatchNo implements Rule
         $batch_no = $this->request->order_data_offline[$index]['batch_no'];
         $this->item_name = $this->request->order_data_offline[$index]['product_name'];
         if ($batch_no) {
-            $batch_query = PurchaseOrderReceivableWithBatch::where(['batch_no' => $batch_no,'stock_id'=>$value])->get();
+            $batch_query = PurchaseOrderReceivableWithBatch::withoutGlobalScope(BranchScope::class)->where(['batch_no' => $batch_no,'stock_id'=>$value])->get();
             if ($batch_query->isEmpty()) {
                 return false;
             } else {

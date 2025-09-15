@@ -11,7 +11,7 @@
                     <div class="card-body">
                         <div class="row">
                            
-                           <div class="col-md-2 form-group">
+                           <div v-if="false" class="col-md-2 form-group">
                                 <label for="">Branch Filter</label>
                                 <treeselect
                                     :load-options="fetchBranch"

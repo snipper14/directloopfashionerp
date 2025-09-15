@@ -15,7 +15,7 @@
                         </barcode>
                         <!-- <span class="dark-background">{{company.toLowerCase()}}</span> -->
                         <b :style="spanStyle">
-                            {{ stockObject.label }}/Ksh. {{stockObject.selling_price}}
+                            Ksh. {{stockObject.selling_price}} / {{ stockObject.label }}
                         </b>
                     </center>
                 </span>

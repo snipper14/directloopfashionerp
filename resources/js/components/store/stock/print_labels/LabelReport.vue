@@ -82,7 +82,7 @@ export default {
 
             
             try {
-                const response =await this.callApi('DELETE',`/data/label_dimension/deleteDimension/${id}`,{});// Replace with your API URL
+                const response =await this.callApi('DELETE',`data/label_dimension/deleteDimension/${id}`,{});// Replace with your API URL
                 if (response.status === 200) {
                     // Remove the deleted dimension from the array
                     this.dimensions = this.dimensions.filter(dimension => dimension.id !== id);
@@ -95,7 +95,7 @@ export default {
         async fetchLabelDimensions() {
             try {
                 // Assuming you have an API endpoint for fetching dimensions
-                const response = await this.getApi('/data/label_dimension/fetch',{}); // Replace with your actual API URL
+                const response = await this.getApi('data/label_dimension/fetch',{}); // Replace with your actual API URL
                 this.dimensions = response.data; // Store the data in dimensions
             } catch (error) {
                 console.error("There was an error fetching the label dimensions:", error);

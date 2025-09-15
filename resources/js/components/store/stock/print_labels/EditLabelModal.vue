@@ -36,7 +36,7 @@
                                     class="form-control"
                                 />
                             </div>
-                           <div
+                            <div
                                 v-for="(value, key) in form_data"
                                 :key="key"
                                 class="col-md-6 form-group"
@@ -82,22 +82,22 @@ export default {
             barcodeValue: "123445",
             name: "",
             form_data: {
-                bar_font_size: '',
-                bar_height: '',
-                bar_width: '',
-                wrapper_height:200 ,
+                bar_font_size: "",
+                bar_height: "",
+                bar_width: "",
+                wrapper_height: 200,
                 wrapper_width: 195,
                 id: null,
-                item_description_fontsize: '',
+                item_description_fontsize: "",
             },
         };
     },
     created() {
-          console.log("Component mounted."+JSON.stringify(this.edit_data));
+        console.log("Component mounted." + JSON.stringify(this.edit_data));
         this.form_data = this.edit_data;
-        this.form_data.id=this.edit_data.id
-        this.name=this.form_data.name
-        console.log("Component mounted."+JSON.stringify(this.form_data));
+        this.form_data.id = this.edit_data.id;
+        this.name = this.form_data.name;
+        console.log("Component mounted." + JSON.stringify(this.form_data));
     },
     computed: {
         spanStyle() {
@@ -121,7 +121,7 @@ export default {
             this.hideLoader();
             if (res.status == 200) {
                 this.s("saved");
-                this.$emit('dismiss-modal')
+                this.$emit("dismiss-modal");
             } else {
                 this.form_error(res);
             }

@@ -131,7 +131,7 @@ export default {
             }
         },
         submitRecords(value) {
-            
+            console.log("value>>>" + JSON.stringify(value));
             this.order_data_offline = this.$store.state.order_data;
             if (value.qty < 0) {
                 this.errorNotif("Enter Qty");

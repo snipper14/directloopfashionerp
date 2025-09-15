@@ -2096,7 +2096,7 @@ export default new Router({
     //   base:"/mzito",
     // base:"/erp_demo",
    // base: "/elevetus",
-   //base: "/direct_loop_fashion",
+//  base: "/direct_loop_fashion",
     mode: "history",
     routes,
 });

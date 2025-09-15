@@ -123,18 +123,18 @@ class POSSaleController extends BaseController
             for ($i = 0; $i < count($request->order_data_offline); $i++) {
                 $value = $request->order_data_offline[$i];
                 $rs = Stock::where('id', $value['stock_id'])->first();
-                $purchaseDate=null;
-              if (!empty($value['batch_no'])) {
-                    PurchaseOrderReceivableWithBatch::where(['stock_id' => $value['stock_id'], 'batch_no' => $value['batch_no']])->increment('qty_sold', $value['qty']);
-              
-              $expiry = PurchaseOrderReceivableWithBatch::query()
-        ->where('stock_id', $value['stock_id'])
-        ->where('batch_no', $value['batch_no'])
-        ->orderByDesc('received_date')       // or ->latest('id')
-        ->value('expiry_date');              // string|Carbon|null
+                $purchaseDate = null;
+                if (!empty($value['batch_no'])) {
+                    PurchaseOrderReceivableWithBatch::withoutGlobalScope(BranchScope::class)->where(['stock_id' => $value['stock_id'], 'batch_no' => $value['batch_no']])->increment('qty_sold', $value['qty']);
 
-    // Normalize to date string (optional, depending on your column type/cast)
-    $purchaseDate = $expiry ? Carbon::parse($expiry)->toDateString() : null;
+                    $batchres = PurchaseOrderReceivableWithBatch::withoutGlobalScope(BranchScope::class)
+                        ->where('stock_id', $value['stock_id'])
+                        ->where('batch_no', $value['batch_no'])
+                        ->orderByDesc('created_at')       // or ->latest('id')
+                        ->first();              // string|Carbon|null
+
+                    // Normalize to date string (optional, depending on your column type/cast)
+                    $purchaseDate = $batchres ? Carbon::parse($batchres->expiry_date)->toDateString() : null;
                 }
                 AllSaleDetailsReport::create(
                     [
@@ -161,7 +161,8 @@ class POSSaleController extends BaseController
                         'batch_no' => $value['batch_no'],
                         'discount' =>  $value['discount'],
                         'item_discount' =>  $rs->item_discount,
-                         'purchase_date'        => $purchaseDate,
+                        'purchase_date'        => $purchaseDate,
+                        'supplier_id'        => $batchres ? $batchres->supplier_id : null,
                     ]
                         + Parent::branch_array()
                 );
@@ -946,7 +947,8 @@ class POSSaleController extends BaseController
             'cashier',
             'unit',
             'stock',
-            'customer'
+            'customer',
+            'supplier'
         ]);
         $main_query->when(request('from', '') != '' && request('to', '') != '', function ($query) use ($from, $to) {
 
@@ -972,6 +974,9 @@ class POSSaleController extends BaseController
                 ->orWhereHas('customer', function ($q) {
                     $q->where('company_name', 'LIKE', '%' . request('search') . '%');
                 })
+                ->orWhereHas('supplier', function ($q) {
+                    $q->where('company_name', 'LIKE', '%' . request('search') . '%');
+                })
 
                 ->orWhereHas('cashier', function ($q) {
                     $q->where('name', 'LIKE', '%' . request('search') . '%');
@@ -986,7 +991,7 @@ class POSSaleController extends BaseController
             ->when(request('sort_price'), function ($query) {
                 $query->orderBy('price', request('sort_price'));
             })
-             ->when(request('sort_discount'), function ($query) {
+            ->when(request('sort_discount'), function ($query) {
                 $query->orderBy('discount', request('sort_discount'));
             })
             ->when(request('sort_cost_price'), function ($query) {
@@ -3564,96 +3569,13 @@ class POSSaleController extends BaseController
         return response()->json($response);
     }
 
-public function getDeadStock(Request $request) 
-{
-    try {
-        $branchId = $request->input('branch_id', auth()->user()->branch_id);
-        $noDays = $request->input('no_days', 30); // Default to 30 days
-        $qtyLimit = $request->input('qty_limit', 0); // Default to 0 (no sales)
-        $dormantDate = now()->subDays($noDays)->startOfDay()->toDateTimeString();
-
-        // Validate inputs
-        if (!is_numeric($noDays) || $noDays < 0) {
-            return response()->json(['error' => 'Invalid number of days'], 400);
-        }
-        if (!is_numeric($qtyLimit) || $qtyLimit < 0) {
-            return response()->json(['error' => 'Invalid quantity limit'], 400);
-        }
-        if (!$branchId) {
-            return response()->json(['error' => 'Branch ID is required'], 400);
-        }
-
-        // Get stock IDs with their total sold quantities within the no_days period
-        $soldStockQuantities = AllSaleDetailsReport::withoutGlobalScope(BranchScope::class)
-            ->where('branch_id', $branchId)
-            ->where('order_date', '>=', $dormantDate)
-            ->groupBy('stock_id')
-            ->selectRaw('stock_id, SUM(qty) as total_sold_qty')
-            ->pluck('total_sold_qty', 'stock_id')
-            ->toArray();
-
-        // Filter stock IDs where total sold qty is <= qty_limit or not sold at all
-        $eligibleStockIds = array_filter($soldStockQuantities, function ($qty) use ($qtyLimit) {
-            return $qty <= $qtyLimit;
-        });
-        $eligibleStockIds = array_keys($eligibleStockIds);
-
-        // Main query to fetch purchased stock that is dormant and has low/no sales
-        $main_query = Stock::select('stocks.*')
-            ->join('purchase_order_receivable_with_batches as porwb', function ($join) use ($branchId) {
-                $join->on('stocks.id', '=', 'porwb.stock_id')
-                    ->where('porwb.branch_id', '=', $branchId)
-                    ->whereNull('porwb.deleted_at');
-            })
-            ->join('inventories', function ($join) use ($branchId) {
-                $join->on('stocks.id', '=', 'inventories.stock_id')
-                    ->where('inventories.branch_id', '=', $branchId)
-                    ->whereNull('inventories.deleted_at');
-            })
-            ->whereNull('stocks.deleted_at') // Ensure stocks are not soft-deleted
-            ->groupBy('stocks.id')
-            ->selectRaw('SUM(COALESCE(inventories.qty, 0)) as current_qty')
-            ->selectRaw('GROUP_CONCAT(DISTINCT porwb.batch_no) as batch_numbers')
-            ->selectRaw('GROUP_CONCAT(DISTINCT porwb.expiry_date) as expiry_dates')
-            ->selectRaw('COALESCE((SELECT SUM(qty) FROM all_sale_details_reports WHERE stock_id = stocks.id AND branch_id = ? AND order_date >= ?), 0) as total_sold_qty', [$branchId, $dormantDate])
-            ->havingRaw('SUM(COALESCE(inventories.qty, 0)) > 0')
-            ->havingRaw("MIN(porwb.received_date) <= '{$dormantDate}'");
-
-        // Filter by eligible stock IDs (low/no sales) or stocks not sold at all
-        $main_query->where(function ($query) use ($eligibleStockIds, $soldStockQuantities) {
-            $query->whereNotIn('stocks.id', array_keys($soldStockQuantities)) // Not sold in period
-                ->orWhereIn('stocks.id', $eligibleStockIds); // Sold <= qty_limit
-        });
-
-        // Apply search filter if provided
-        if ($request->has('search') && !empty($request->search)) {
-            $main_query->where(function ($q) use ($request) {
-                $q->where('stocks.product_name', 'like', '%' . $request->search . '%')
-                    ->orWhere('stocks.code', 'like', '%' . $request->search . '%');
-            });
-        }
-
-        // Apply sorting by quantity if provided
-        if ($request->sort_qty) {
-            $main_query->orderBy('current_qty', $request->sort_qty);
-        }
-
-        // Paginate or get all results
-        $res = $request->page > 0 ? $main_query->paginate(30) : $main_query->get();
-
-        return response()->json($res);
-    } catch (\Exception $e) {
-        Log::error('Error in getDeadStock: ' . $e->getMessage());
-        return response()->json(['error' => 'An error occurred while fetching dead stock'], 500);
-    }
-}
-     public function getDeadStockPrev(Request $request)
+    public function getDeadStock(Request $request)
     {
         try {
             $branchId = $request->input('branch_id', auth()->user()->branch_id);
             $noDays = $request->input('no_days', 30); // Default to 30 days
             $qtyLimit = $request->input('qty_limit', 0); // Default to 0 (no sales)
-            $dormantDate = now()->subDays($noDays)->toDateTimeString();
+            $dormantDate = now()->subDays($noDays)->startOfDay()->toDateTimeString();
 
             // Validate inputs
             if (!is_numeric($noDays) || $noDays < 0) {
@@ -3668,7 +3590,7 @@ public function getDeadStock(Request $request)
 
             // Get stock IDs with their total sold quantities within the no_days period
             $soldStockQuantities = AllSaleDetailsReport::withoutGlobalScope(BranchScope::class)
-                ->where('branch_id', $branchId)
+                //->where('branch_id', $branchId)
                 ->where('order_date', '>=', $dormantDate)
                 ->groupBy('stock_id')
                 ->selectRaw('stock_id, SUM(qty) as total_sold_qty')
@@ -3683,15 +3605,14 @@ public function getDeadStock(Request $request)
 
             // Main query to fetch purchased stock that is dormant and has low/no sales
             $main_query = Stock::select('stocks.*')
-                ->join('purchase_order_receivable_with_batches as porwb', function ($join) use ($branchId, $dormantDate) {
+                ->join('purchase_order_receivable_with_batches as porwb', function ($join) use ($branchId) {
                     $join->on('stocks.id', '=', 'porwb.stock_id')
-                        ->where('porwb.branch_id', '=', $branchId)
-                        ->where('porwb.received_date', '<=', $dormantDate)
+                  //      ->where('porwb.branch_id', '=', $branchId)
                         ->whereNull('porwb.deleted_at');
                 })
                 ->join('inventories', function ($join) use ($branchId) {
                     $join->on('stocks.id', '=', 'inventories.stock_id')
-                        ->where('inventories.branch_id', '=', $branchId)
+                       // ->where('inventories.branch_id', '=', $branchId)
                         ->whereNull('inventories.deleted_at');
                 })
                 ->whereNull('stocks.deleted_at') // Ensure stocks are not soft-deleted
@@ -3699,7 +3620,9 @@ public function getDeadStock(Request $request)
                 ->selectRaw('SUM(COALESCE(inventories.qty, 0)) as current_qty')
                 ->selectRaw('GROUP_CONCAT(DISTINCT porwb.batch_no) as batch_numbers')
                 ->selectRaw('GROUP_CONCAT(DISTINCT porwb.expiry_date) as expiry_dates')
-                ->havingRaw('SUM(COALESCE(inventories.qty, 0)) > 0');
+                ->selectRaw('COALESCE((SELECT SUM(qty) FROM all_sale_details_reports WHERE stock_id = stocks.id AND branch_id = ? AND order_date >= ?), 0) as total_sold_qty', [$branchId, $dormantDate])
+                ->havingRaw('SUM(COALESCE(inventories.qty, 0)) > 0')
+                ->havingRaw("MIN(porwb.received_date) <= '{$dormantDate}'");
 
             // Filter by eligible stock IDs (low/no sales) or stocks not sold at all
             $main_query->where(function ($query) use ($eligibleStockIds, $soldStockQuantities) {
@@ -3729,9 +3652,9 @@ public function getDeadStock(Request $request)
             return response()->json(['error' => 'An error occurred while fetching dead stock'], 500);
         }
     }
+  
 
 
-    
     function getRedeemablePoints(Request $request)
     {
         $customer_id = $request->customer_id;

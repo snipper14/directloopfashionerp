@@ -40,8 +40,10 @@
                             >
                                 <thead>
                                     <tr>
+                                        <th>Supplier</th>
                                         <th>Created at</th>
-                                        <th scope="col">Order Date</th>
+                                        <th scope="col">Purchase Date</th>
+                                         
 
                                         <th scope="col">Stock</th>
                                         <th scope="col">Unit</th>
@@ -110,12 +112,13 @@
                                         v-for="(data, i) in sale_data.data"
                                         :key="i"
                                     >
+                                    <td>{{ data.supplier ? data.supplier.company_name : '' }}</td>
                                         <td>
                                             {{
                                                 formatDateTime(data.created_at)
                                             }}
                                         </td>
-                                        <td>{{ data.order_date }}</td>
+                                        <td>{{ data.purchase_date }}</td>
                                         <td>
                                             {{ data.stock.product_name }}
                                         </td>
@@ -313,6 +316,7 @@ export default {
                         stock: array_item.stock.product_name,
                         order_no: array_item.order_no,
                         batch_no: array_item.batch_no,
+                        supplier: array_item.supplier ? array_item.supplier.company_name : '',
                         purchase_date: array_item.purchase_date,
                         order_date: array_item.order_date,
                         qty: array_item.qty,

@@ -14,13 +14,14 @@ use App\Scopes\BranchScope;
 use App\Traits\AddsBranchScope;
 use App\Traits\TracksDeletions;
 use App\Category\ProductCategory;
+use App\Suppliers\Supplier;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class AllSaleDetailsReport extends Model
 {
-    use SoftDeletes,TracksDeletions,AddsBranchScope;
+    use SoftDeletes, TracksDeletions, AddsBranchScope;
     protected $fillable = [
         'branch_id',
         'user_id',
@@ -45,11 +46,11 @@ class AllSaleDetailsReport extends Model
         'discount',
         'deleted_by',
         'purchase_date',
-        'item_discount'
-
+        'item_discount',
+        'supplier_id'
 
     ];
-public static function sumQtyAndPriceByStockId($stockId, $fromDate = null, $toDate = null)
+    public static function sumQtyAndPriceByStockId($stockId, $fromDate = null, $toDate = null)
     {
         $query = self::where('stock_id', $stockId)
             ->selectRaw('SUM(qty) as sum_qty, SUM(qty * price) as sum_qty_and_price');
@@ -62,6 +63,10 @@ public static function sumQtyAndPriceByStockId($stockId, $fromDate = null, $toDa
             'sum_qty' => $result->sum_qty ?? 0,
             'sum_qty_and_price' => $result->sum_qty_and_price ?? 0,
         ];
+    }
+    function supplier()
+    {
+        return $this->belongsTo(Supplier::class, 'supplier_id')->withDefault(['supplier' => '']);
     }
     public function productCategory()
     {
@@ -83,23 +88,23 @@ public static function sumQtyAndPriceByStockId($stockId, $fromDate = null, $toDa
     }
     public function  unit()
     {
-        return $this->belongsTo(Unit::class)->withDefault(['unit'=>''])->withTrashed();
+        return $this->belongsTo(Unit::class)->withDefault(['unit' => ''])->withTrashed();
     }
     public function customer()
     {
-        return $this->belongsTo(Customer::class)->withDefault(['customer'=>'']);
+        return $this->belongsTo(Customer::class)->withDefault(['customer' => '']);
     }
     public function user()
     {
-        return $this->belongsTo(User::class)->withDefault(['user'=>''])->withTrashed();
+        return $this->belongsTo(User::class)->withDefault(['user' => ''])->withTrashed();
     }
     public function cashier()
     {
-        return $this->belongsTo(User::class)->withTrashed()->withDefault(['cashier'=>'']);
+        return $this->belongsTo(User::class)->withTrashed()->withDefault(['cashier' => '']);
     }
     public function branch()
     {
-        return $this->belongsTo(Branch::class)->withTrashed()->withDefault(['branch'=>'']);
+        return $this->belongsTo(Branch::class)->withTrashed()->withDefault(['branch' => '']);
     }
     protected static function boot()
     {
@@ -107,9 +112,6 @@ public static function sumQtyAndPriceByStockId($stockId, $fromDate = null, $toDa
 
         static::bootAddsBranchScope();
         static::bootTracksDeletions();
-        
-        
-
     }
     protected static function bulkDelete(array $conditions)
     {
